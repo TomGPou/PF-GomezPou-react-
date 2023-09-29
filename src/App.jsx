@@ -7,7 +7,7 @@ function App() {
   return (
     <ThemeProvider theme={customTheme}>
       <Navbar />
-      <ItemListContainer />
+      <ItemListContainer greeting={"Bienvenido a BLESSED"} />
     </ThemeProvider>
   );
 }
