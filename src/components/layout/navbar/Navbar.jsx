@@ -1,19 +1,20 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+  MenuItem,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import CartWidget from "../../common/cartWidget/CartWidget";
 import { customTheme } from "../../common/themeConfig/themeconfig";
 
-const pages = [
+const categories = [
   "Todos los productos",
   "Remeras",
   "Ropa interior - Mujer",
@@ -34,9 +35,13 @@ function Navbar() {
 
   return (
     <AppBar position="static">
-      <Box
-        color="primary"
-        sx={{ height: "20vh", display: "flex", justifyContent: "center", p: 1 }}
+      <Container
+        sx={{
+          height: "20vh",
+          display: "flex",
+          justifyContent: "center",
+          py: 1,
+        }}
       >
         <a href="./index.html">
           <img
@@ -45,10 +50,13 @@ function Navbar() {
             style={{ height: "100%", width: "auto" }}
           />
         </a>
-      </Box>
+      </Container>
       <Container
-        maxWidth="xl"
-        sx={{ background: customTheme.palette.primary.dark }}
+        maxWidth="false"
+        sx={{
+          background: customTheme.palette.primary.dark,
+          width: "100%",
+        }}
       >
         <Toolbar disableGutters>
           <Typography
@@ -96,13 +104,13 @@ function Navbar() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: "block", md: "none" } }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {categories.map((category) => (
+                <MenuItem key={category} onClick={handleCloseNavMenu}>
                   <Typography
                     sx={{ color: customTheme.palette.dark.main }}
                     textAlign="center"
                   >
-                    {page}
+                    {category}
                   </Typography>
                 </MenuItem>
               ))}
@@ -127,14 +135,14 @@ function Navbar() {
             BLESSED
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {categories.map((category) => (
               <Button
                 color="dark"
-                key={page}
+                key={category}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: "block" }}
               >
-                {page}
+                {category}
               </Button>
             ))}
           </Box>
