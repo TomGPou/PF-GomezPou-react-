@@ -15,14 +15,6 @@ import CartWidget from "../../common/cartWidget/CartWidget";
 import { customTheme } from "../../common/themeConfig/themeconfig";
 import { Link } from "react-router-dom";
 
-const categories = [
-  "Todos los productos",
-  "Remeras",
-  "Ropa interior - Mujer",
-  "Ropa interior - Hombre",
-  "Medias",
-];
-
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
@@ -36,10 +28,10 @@ function Navbar() {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Container
           sx={{
-            height: "20vh",
+            height: "15vh",
             display: "flex",
             justifyContent: "center",
             py: 1,
@@ -61,22 +53,6 @@ function Navbar() {
           }}
         >
           <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "#5e565a",
-                textDecoration: "none",
-              }}
-            >
-              <Link to="/">BLESSED</Link>
-            </Typography>
-
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
@@ -105,12 +81,16 @@ function Navbar() {
                 sx={{ display: { xs: "block", md: "none" } }}
               >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    sx={{ color: customTheme.palette.dark.main }}
-                    textAlign="center"
-                  >
-                    <Link to="/">Todos los productos</Link>
-                  </Typography>
+                  <Link to="/">
+                    <Typography
+                      sx={{
+                        color: customTheme.palette.dark.main,
+                        textDecoration: "none",
+                      }}
+                    >
+                      Todos los productos
+                    </Typography>
+                  </Link>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
                   <Typography
@@ -135,8 +115,9 @@ function Navbar() {
                     sx={{ color: customTheme.palette.dark.main }}
                     textAlign="center"
                   >
-                    Ropa Interior - Hombre
-                    <Link to="/category/ropaInteriorHombre"></Link>
+                    <Link to="/category/ropaInteriorHombre">
+                      Ropa Interior - Hombre
+                    </Link>
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleCloseNavMenu}>
@@ -149,23 +130,6 @@ function Navbar() {
                 </MenuItem>
               </Menu>
             </Box>
-
-            <Typography
-              variant="h5"
-              noWrap
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "#5e565a",
-                textDecoration: "none",
-              }}
-            >
-              <Link to="/">BLESSED</Link>
-            </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <Button
