@@ -58,7 +58,7 @@ export const products = [
     name: "Conjunto CK Blanco",
     category: "ropaInteriorMujer",
     imgUrl:
-      "https://res.cloudinary.com/dp81n6kpr/image/upload/v1695581482/Blessed/boxerPoker_eermvi.png",
+      "https://res.cloudinary.com/dp81n6kpr/image/upload/v1695581360/Blessed/conjuntoCKBlanco_ghyqga.png",
     price: 2800,
     stock: 20,
   },

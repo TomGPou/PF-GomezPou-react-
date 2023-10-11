@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import ItemDetail from "./ItemDetail";
 import { products } from "../../../../productList";
+import { useParams } from "react-router-dom";
 
 const ItemDetailContainer = () => {
   const [productSelected, setProductSelected] = useState({});
-  const id = 3;
+  const { id } = useParams();
 
   useEffect(() => {
-    let product = products.find((product) => product.id === id);
+    let product = products.find((product) => product.id === +id);
     const getProduct = new Promise((resolve, reject) => {
       resolve(product);
       // reject("error")
@@ -17,8 +18,6 @@ const ItemDetailContainer = () => {
       .then((res) => setProductSelected(res))
       .catch((err) => console.log(err));
   }, [id]);
-
-  console.log(productSelected);
 
   const onAdd = (cantidad) => {
     let obj = {
