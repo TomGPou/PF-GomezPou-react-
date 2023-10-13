@@ -1,11 +1,26 @@
+import { Box, Button } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { ArrowForwardIos } from "@mui/icons-material";
+
 const Counter = ({ add, subtract, counter, onAdd }) => {
   return (
-    <div>
-      <button onClick={add}>+</button>
+    <Box sx={{ display: "flex" }} spacing={2}>
+      <Button onClick={subtract}>
+        <ArrowBackIosIcon />
+      </Button>
       <h4>{counter}</h4>
-      <button onClick={subtract}>-</button>
-      <button onClick={() => onAdd(counter)}>Agregar al carrito</button>
-    </div>
+      <Button onClick={add}>
+        <ArrowForwardIos />
+      </Button>
+
+      <Button
+        onClick={() => {
+          onAdd(counter);
+        }}
+      >
+        Agregar al carrito
+      </Button>
+    </Box>
   );
 };
 

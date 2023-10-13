@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { customTheme } from "./components/common/themeConfig/themeconfig";
 import ItemListContainer from "./components/pages/itemListContainer/ItemListContainer";
-import ItemDetailContainer from "./components/pages/ItemDetailContainer/ItemDetailContainer";
 import Layout from "./components/layout/layout";
+import ItemDetailContainer from "./components/pages/itemDetailContainer/ItemDetailContainer";
 
 function App() {
   return (

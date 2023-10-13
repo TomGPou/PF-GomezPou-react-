@@ -1,8 +1,20 @@
+import { Container, Typography } from "@mui/material";
+import { customTheme } from "../../common/themeConfig/themeconfig";
+
 const Footer = () => {
   return (
-    <div style={{ width: "100%", backgroundColor: "white", height: "15vh" }}>
-      <h4> Este es el footer</h4>
-    </div>
+    <Container
+      maxWidth="false"
+      sx={{
+        height: "5vh",
+        backgroundColor: customTheme.palette.primary.main,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="body-md"> Copyright 2023</Typography>
+    </Container>
   );
 };
 

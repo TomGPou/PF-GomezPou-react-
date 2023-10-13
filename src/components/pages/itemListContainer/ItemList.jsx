@@ -10,8 +10,9 @@ const ItemList = ({ items }) => {
       spacing={2}
       justifyContent="center"
       sx={{
-        my: "10px",
+        my: "1vh",
         px: "20px",
+        minHeight: "70vh",
       }}
     >
       {items.map((item) => {
