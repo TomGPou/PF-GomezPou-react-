@@ -4,10 +4,12 @@ import { useContext } from "react";
 import { CartContext } from "../../../context/CartContext";
 
 const CartWidget = () => {
-  const { cart } = useContext(CartContext);
+  const { getTotalQuantity } = useContext(CartContext);
+
+  let total = getTotalQuantity();
 
   return (
-    <Badge badgeContent={cart.length} color="error" sx={{ flexGrow: 0 }}>
+    <Badge badgeContent={total} color="error" sx={{ flexGrow: 0 }}>
       <ShoppingCartIcon color="dark"></ShoppingCartIcon>
     </Badge>
   );

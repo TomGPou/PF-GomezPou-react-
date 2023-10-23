@@ -1,25 +1,32 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const Cart = ({ cart, clearCart }) => {
+const Cart = ({ cart, clearCartAlert, deleteProductById, total }) => {
   return (
     <div>
       <h1>Estoy en el carrito</h1>
 
       {cart.map((product) => (
         <div key={product.id}>
-          <h2>{product.name}</h2>
-          <h2>Cantidad: {product.quantity}</h2>
+          <h3>{product.name}</h3>
+          <h3>Cantidad: {product.quantity}</h3>
+          <IconButton onClick={() => deleteProductById(product.id)}>
+            <DeleteForeverIcon />
+          </IconButton>
         </div>
       ))}
 
-      <Link to="/checkout">
-        <Button variant="contained">Finalizar compra</Button>
-      </Link>
+      <div>
+        <h2>El total a pagar es: ${total}</h2>
+        <Link to="/checkout">
+          <Button variant="contained">Finalizar compra</Button>
+        </Link>
 
-      <Button variant="contained" onClick={clearCart}>
-        Vaciar carrito
-      </Button>
+        <Button variant="contained" onClick={clearCartAlert}>
+          Vaciar carrito
+        </Button>
+      </div>
     </div>
   );
 };

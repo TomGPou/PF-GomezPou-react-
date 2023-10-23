@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CounterContainer from "../../common/counter/CounterContainer";
 import {
   Card,
@@ -6,9 +7,15 @@ import {
   CardMedia,
   CardContent,
   CardActions,
+  Button,
 } from "@mui/material";
 
-export const ItemDetail = ({ productSelected, onAdd, initial }) => {
+export const ItemDetail = ({
+  productSelected,
+  onAdd,
+  initial,
+  showCounter,
+}) => {
   return (
     <Container
       sx={{
@@ -34,17 +41,23 @@ export const ItemDetail = ({ productSelected, onAdd, initial }) => {
           </Typography>
           {initial && (
             <Typography variant="body2" color="text.secondary">
-              Ya tienes {initial} de este producto en el carrito
+              Ya tienes {initial} unidades en el carrito
             </Typography>
           )}
         </CardContent>
 
         <CardActions>
-          <CounterContainer
-            stock={productSelected.stock}
-            onAdd={onAdd}
-            initial={initial}
-          />
+          {showCounter ? (
+            <CounterContainer
+              stock={productSelected.stock}
+              onAdd={onAdd}
+              initial={initial}
+            />
+          ) : (
+            <Link to="/cart">
+              <Button>Terminar Compra</Button>
+            </Link>
+          )}
         </CardActions>
       </Card>
     </Container>

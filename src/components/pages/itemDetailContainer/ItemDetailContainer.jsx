@@ -1,17 +1,17 @@
 import { useState, useEffect, useContext } from "react";
 import ItemDetail from "./ItemDetail";
 import { products } from "../../../../productList";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CartContext } from "../../../context/CartContext";
+import Swal from "sweetalert2";
 
 const ItemDetailContainer = () => {
   const [productSelected, setProductSelected] = useState({});
+  const [showCounter, setShowCounter] = useState(true);
   const { id } = useParams();
-  const navigate = useNavigate();
   const { addToCart, getQuantityById } = useContext(CartContext);
 
   let totalQuantity = getQuantityById(+id);
-  console.log(totalQuantity);
 
   useEffect(() => {
     let product = products.find((product) => product.id === +id);
@@ -33,9 +33,15 @@ const ItemDetailContainer = () => {
 
     addToCart(item);
 
-    // setTimeout(() => {
-    //   navigate("/cart");
-    // }, 500);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Producto agregado al carrito",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+    setShowCounter(false);
   };
 
   return (
@@ -43,6 +49,7 @@ const ItemDetailContainer = () => {
       productSelected={productSelected}
       onAdd={onAdd}
       initial={totalQuantity}
+      showCounter={showCounter}
     />
   );
 };
