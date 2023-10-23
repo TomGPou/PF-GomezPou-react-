@@ -2,8 +2,6 @@ import { Grid } from "@mui/material";
 import ProductCard from "../../common/productCard/ProductCard";
 
 const ItemList = ({ items }) => {
-  console.log(items);
-
   return (
     <Grid
       container

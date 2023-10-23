@@ -8,7 +8,7 @@ import {
   CardActions,
 } from "@mui/material";
 
-export const ItemDetail = ({ productSelected, onAdd }) => {
+export const ItemDetail = ({ productSelected, onAdd, initial }) => {
   return (
     <Container
       sx={{
@@ -29,13 +29,22 @@ export const ItemDetail = ({ productSelected, onAdd }) => {
           <Typography gutterBottom variant="h5" component="div">
             {productSelected.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body1" color="text.secondary">
             $ {productSelected.price}
           </Typography>
+          {initial && (
+            <Typography variant="body2" color="text.secondary">
+              Ya tienes {initial} de este producto en el carrito
+            </Typography>
+          )}
         </CardContent>
 
         <CardActions>
-          <CounterContainer stock={productSelected.stock} onAdd={onAdd} />
+          <CounterContainer
+            stock={productSelected.stock}
+            onAdd={onAdd}
+            initial={initial}
+          />
         </CardActions>
       </Card>
     </Container>
