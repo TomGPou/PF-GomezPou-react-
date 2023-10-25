@@ -1,42 +1,59 @@
+import { Button, TextField } from "@mui/material";
+
 const Checkout = ({ handleChange, handleSubmit, errors }) => {
   return (
     <div>
       <h1>Estoy en el checkout</h1>
 
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <TextField
+          label="Nombre"
+          variant="outlined"
           name="nombre"
           onChange={handleChange}
-          placeholder="Nombre"
+          error={errors.nombre ? true : false}
+          helperText={errors.nombre}
         />
-        <span style={{ color: "crimson", fontSize: " 0.5rem" }}>
-          {errors.nombre}
-        </span>
-        <input
-          type="text"
+        <TextField
+          label="Apellido"
+          variant="outlined"
           name="apellido"
           onChange={handleChange}
-          placeholder="Apellido"
+          error={errors.apellido ? true : false}
+          helperText={errors.apellido}
         />
-        <span style={{ color: "crimson", fontSize: " 0.5rem" }}>
-          {errors.apellido}
-        </span>
-
-        <input
-          type="text"
+        <TextField
+          label="Email"
+          variant="outlined"
           name="email"
           onChange={handleChange}
-          placeholder="email"
+          error={errors.email ? true : false}
+          helperText={errors.email}
         />
-        <span style={{ color: "crimson", fontSize: " 0.5rem" }}>
-          {errors.email}
-        </span>
-
-        <button>Enviar</button>
-        <button type="button" onClick={() => console.log("se cancelo")}>
+        <Button type="submit" variant="contained">
+          Aceptar
+        </Button>
+        <Button type="button" variant="outlined">
           Cancelar
-        </button>
+        </Button>
+
+        {/* <TextField
+          label="Contraseña"
+          variant="outlined"
+          name="password"
+          onChange={handleChange}
+          error={errors.password ? true : false}
+          helperText={errors.password}
+        />
+
+        <TextField
+          label="Repetir contraseña"
+          variant="outlined"
+          name="repeatPassword"
+          onChange={handleChange}
+          error={errors.repeatPassword ? true : false}
+          helperText={errors.repeatPassword}
+        /> */}
       </form>
     </div>
   );
