@@ -14,6 +14,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CartWidget from "../../common/cartWidget/CartWidget";
 import { customTheme } from "../../common/themeConfig/themeconfig";
 import { Link } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../../firebaseConfig";
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -25,6 +27,47 @@ function Navbar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  let categories = [
+    {
+      id: 1,
+      name: "Todos los productos",
+      path: "/",
+    },
+    {
+      id: 2,
+      name: "Remeras",
+      path: "/category/remeras",
+    },
+    {
+      id: 3,
+      name: "Ropa interior - Mujer",
+      path: "/category/ropaInteriorMujer",
+    },
+    {
+      id: 4,
+      name: "Ropa interior - Hombre",
+      path: "/category/ropaInteriorHombre",
+    },
+    {
+      id: 5,
+      name: "Medias",
+      path: "/category/medias",
+    },
+  ];
+
+  // const [categories, setCategories] = React.useState([]);
+
+  // React.useEffect(() => {
+  //   let categoriesCollection = collection(db, "categories");
+
+  //   getDocs(categoriesCollection).then((res) => {
+  //     let categoriesDb = res.docs.map((category) => {
+  //       return { ...category.data(), id: category.id };
+  //     });
+  //     setCategories(categoriesDb);
+  //   });
+  // }, []);
 
   return (
     <>
@@ -80,97 +123,38 @@ function Navbar() {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: "block", md: "none" } }}
               >
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to="/">
-                    <Typography
-                      sx={{
-                        color: customTheme.palette.dark.main,
-                        textDecoration: "none",
-                      }}
-                    >
-                      Todos los productos
-                    </Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    sx={{ color: customTheme.palette.dark.main }}
-                    textAlign="center"
-                  >
-                    <Link to="/category/remeras">Remeras</Link>
-                  </Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    sx={{ color: customTheme.palette.dark.main }}
-                    textAlign="center"
-                  >
-                    <Link to="/category/ropaInteriorMujer">
-                      Ropa Interior - Mujer
-                    </Link>
-                  </Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    sx={{ color: customTheme.palette.dark.main }}
-                    textAlign="center"
-                  >
-                    <Link to="/category/ropaInteriorHombre">
-                      Ropa Interior - Hombre
-                    </Link>
-                  </Typography>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography
-                    sx={{ color: customTheme.palette.dark.main }}
-                    textAlign="center"
-                  >
-                    <Link to="/category/medias">Medias</Link>
-                  </Typography>
-                </MenuItem>
+                {categories.map((category) => {
+                  return (
+                    <MenuItem key={category.id} onClick={handleCloseNavMenu}>
+                      <Link to={category.path}>
+                        <Typography
+                          sx={{
+                            color: customTheme.palette.dark.main,
+                            textDecoration: "none",
+                          }}
+                        >
+                          {category.name}
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  );
+                })}
               </Menu>
             </Box>
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Button
-                color="dark"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: "block" }}
-              >
-                <Link to="/">Todos los productos</Link>
-              </Button>
-              <Button
-                color="dark"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: "block" }}
-              >
-                <Link to="/category/remeras">Remeras</Link>
-              </Button>
-              <Button
-                color="dark"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: "block" }}
-              >
-                <Link to="/category/ropaInteriorMujer">
-                  Ropa interior - Mujer
-                </Link>
-              </Button>
-              <Button
-                color="dark"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: "block" }}
-              >
-                <Link to="/category/ropaInteriorHombre">
-                  Ropa Interior Hombre
-                </Link>
-              </Button>
-              <Button
-                color="dark"
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, display: "block" }}
-              >
-                <Link to="/category/medias">Medias</Link>
-              </Button>
+              {categories.map((category) => {
+                return (
+                  <Button
+                    key={category.id}
+                    color="dark"
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, display: "block" }}
+                  >
+                    <Link to={category.path}>{category.name}</Link>
+                  </Button>
+                );
+              })}
             </Box>
 
             <Link to="/cart">

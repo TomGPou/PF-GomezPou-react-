@@ -4,14 +4,14 @@ import Cart from "./Cart";
 import Swal from "sweetalert2";
 
 const CartContainer = () => {
-  const { cart, clearCart, deleteProductById, getTotalPrice } =
+  const { cart, cleanCart, deleteProductById, getTotalPrice } =
     useContext(CartContext);
 
   let total = getTotalPrice();
 
-  const clearCartAlert = () => {
+  const cleanCartAlert = () => {
     Swal.fire({
-      title: "Sguro quieres vaciar el carrito?",
+      title: "Seguro quieres vaciar el carrito?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -20,7 +20,7 @@ const CartContainer = () => {
       confirmButtonText: "Si, vaciar",
     }).then((result) => {
       if (result.isConfirmed) {
-        clearCart();
+        cleanCart();
         Swal.fire("Carrito vaciado", "", "success");
       }
     });
@@ -29,7 +29,7 @@ const CartContainer = () => {
   return (
     <Cart
       cart={cart}
-      clearCartAlert={clearCartAlert}
+      cleanCartAlert={cleanCartAlert}
       deleteProductById={deleteProductById}
       total={total}
     />

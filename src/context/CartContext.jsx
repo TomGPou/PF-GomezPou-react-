@@ -3,10 +3,17 @@ import { createContext, useState } from "react";
 export const CartContext = createContext();
 
 const CartContextComponent = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
+
+  const setLS = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
 
   const addToCart = (item) => {
     let exist = isInCart(item.id);
+
     if (exist) {
       let newCart = cart.map((elem) => {
         if (elem.id === item.id) {
@@ -16,8 +23,10 @@ const CartContextComponent = ({ children }) => {
         }
       });
       setCart(newCart);
+      setLS("cart", newCart);
     } else {
       setCart([...cart, item]);
+      setLS("cart", [...cart, item]);
     }
   };
 
@@ -31,13 +40,15 @@ const CartContextComponent = ({ children }) => {
     return exist;
   };
 
-  const clearCart = () => {
+  const cleanCart = () => {
     setCart([]);
+    localStorage.removeItem("cart");
   };
 
   const deleteProductById = (id) => {
     let newArr = cart.filter((product) => product.id !== id);
     setCart(newArr);
+    setLS("cart", newArr);
   };
 
   const getTotalPrice = () => {
@@ -57,7 +68,7 @@ const CartContextComponent = ({ children }) => {
   let data = {
     cart,
     addToCart,
-    clearCart,
+    cleanCart,
     deleteProductById,
     getQuantityById,
     getTotalPrice,

@@ -1,10 +1,14 @@
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import ProductCard from "../../common/productCard/ProductCard";
 import { ClipLoader } from "react-spinners";
 
 const ItemList = ({ items }) => {
   return (
     <>
+      {/* <Button variant="contained" onClick={rellenarDb}>
+        Rellenar
+      </Button> */}
+
       {items.length === 0 ? (
         <ClipLoader cssOverride={{}} />
       ) : (

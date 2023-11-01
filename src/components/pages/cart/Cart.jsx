@@ -2,7 +2,7 @@ import { Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const Cart = ({ cart, clearCartAlert, deleteProductById, total }) => {
+const Cart = ({ cart, cleanCartAlert, deleteProductById, total }) => {
   return (
     <div>
       <h1>Estoy en el carrito</h1>
@@ -23,7 +23,7 @@ const Cart = ({ cart, clearCartAlert, deleteProductById, total }) => {
           <Button variant="contained">Finalizar compra</Button>
         </Link>
 
-        <Button variant="contained" onClick={clearCartAlert}>
+        <Button variant="contained" onClick={cleanCartAlert}>
           Vaciar carrito
         </Button>
       </div>
