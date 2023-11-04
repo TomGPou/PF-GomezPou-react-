@@ -24,9 +24,15 @@ const ProductCard = ({ item }) => {
         </CardContent>
 
         <CardActions>
-          <Link to={`/itemDetail/${item.id}`}>
-            <Button size="small">Ver detalle</Button>
-          </Link>
+          {item.stock > 0 ? (
+            <Link to={`/itemDetail/${item.id}`}>
+              <Button size="small">Ver detalle</Button>
+            </Link>
+          ) : (
+            <Button variant="contained" disabled>
+              Sin Stock
+            </Button>
+          )}
         </CardActions>
       </Card>
     </Grid>

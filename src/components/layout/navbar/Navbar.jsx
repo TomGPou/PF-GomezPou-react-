@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   AppBar,
   Box,
@@ -16,9 +15,10 @@ import { customTheme } from "../../common/themeConfig/themeconfig";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
+import { useEffect, useState } from "react";
 
 function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -28,46 +28,20 @@ function Navbar() {
     setAnchorElNav(null);
   };
 
-  let categories = [
-    {
-      id: 1,
-      name: "Todos los productos",
-      path: "/",
-    },
-    {
-      id: 2,
-      name: "Remeras",
-      path: "/category/remeras",
-    },
-    {
-      id: 3,
-      name: "Ropa interior - Mujer",
-      path: "/category/ropaInteriorMujer",
-    },
-    {
-      id: 4,
-      name: "Ropa interior - Hombre",
-      path: "/category/ropaInteriorHombre",
-    },
-    {
-      id: 5,
-      name: "Medias",
-      path: "/category/medias",
-    },
-  ];
+  const [categories, setCategories] = useState([]);
 
-  // const [categories, setCategories] = React.useState([]);
+  useEffect(() => {
+    let categoriesCollection = collection(db, "categories");
 
-  // React.useEffect(() => {
-  //   let categoriesCollection = collection(db, "categories");
-
-  //   getDocs(categoriesCollection).then((res) => {
-  //     let categoriesDb = res.docs.map((category) => {
-  //       return { ...category.data(), id: category.id };
-  //     });
-  //     setCategories(categoriesDb);
-  //   });
-  // }, []);
+    getDocs(categoriesCollection)
+      .then((res) => {
+        let arrayCategories = res.docs.map((category) => {
+          return { ...category.data(), id: category.id };
+        });
+        setCategories(arrayCategories);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <>
@@ -123,6 +97,19 @@ function Navbar() {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: "block", md: "none" } }}
               >
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link to="/">
+                    <Typography
+                      sx={{
+                        color: customTheme.palette.dark.main,
+                        textDecoration: "none",
+                      }}
+                    >
+                      Todos los Productos
+                    </Typography>
+                  </Link>
+                </MenuItem>
+
                 {categories.map((category) => {
                   return (
                     <MenuItem key={category.id} onClick={handleCloseNavMenu}>
@@ -143,6 +130,13 @@ function Navbar() {
             </Box>
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Button
+                color="dark"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, display: "block" }}
+              >
+                <Link to="/">Todos los productos</Link>
+              </Button>
               {categories.map((category) => {
                 return (
                   <Button

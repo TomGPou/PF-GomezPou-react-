@@ -1,22 +1,73 @@
-// import { useState } from "react";
 import Checkout from "./Checkout";
 import { useFormik } from "formik";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import * as Yup from "yup";
 import { CartContext } from "../../../context/CartContext";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../../../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const CheckoutContainer = () => {
-  const { cart, getTotalPrice } = useContext(CartContext);
+  const { cart, getTotalPrice, cleanCart } = useContext(CartContext);
 
   const total = getTotalPrice();
 
-  const [orderId, setOrderId] = useState(null);
-
   const navigate = useNavigate();
+
+  const createOrder = (data) => {
+    let order = {
+      buyer: data,
+      items: cart,
+      total,
+      date: serverTimestamp(),
+    };
+
+    const ordersCollection = collection(db, "orders");
+
+    Swal.fire({
+      title: "Quieres confirmar la compra?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar compra",
+      confirmButtonText: "Si",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Crear OC
+        addDoc(ordersCollection, order).then((res) => {
+          Swal.fire({
+            title: "Gracias por su compra",
+            text: `Su número de orden es: ${res.id}`,
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "Volver a la tienda",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Actualizar stock
+              cart.forEach((element) => {
+                updateDoc(doc(db, "products", element.id), {
+                  stock: element.stock - element.quantity,
+                });
+              });
+
+              // Vaciar carrito
+              cleanCart();
+
+              navigate("/");
+            }
+          });
+        });
+      }
+    });
+  };
 
   const { handleChange, handleSubmit, errors } = useFormik({
     initialValues: {
@@ -28,40 +79,7 @@ const CheckoutContainer = () => {
     },
 
     onSubmit: (data) => {
-      let order = {
-        buyer: data,
-        items: cart,
-        total,
-        date: serverTimestamp(),
-      };
-
-      const ordersCollection = collection(db, "orders");
-
-      addDoc(ordersCollection, order).then((res) => setOrderId(res.id));
-
-      Swal.fire({
-        title: "Quieres confirmar la compra?",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "Cancelar compra",
-        confirmButtonText: "Si",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Gracias por su compra",
-            text: `Su número de orden es: ${orderId}`,
-            icon: "success",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "Volver a la tienda",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigate("/");
-            }
-          });
-        }
-      });
+      createOrder(data);
     },
 
     validateOnChange: false,
