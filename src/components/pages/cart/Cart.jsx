@@ -1,33 +1,96 @@
-import { Button, IconButton } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Divider,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const Cart = ({ cart, cleanCartAlert, deleteProductById, total }) => {
   return (
-    <div>
-      <h1>Estoy en el carrito</h1>
+    <Container
+      sx={{
+        py: 2,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minHeight: "73vh",
+      }}
+    >
+      <Card>
+        {cart.map((product) => (
+          <Box
+            key={product.id}
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              justifyContent: { xs: "center", sm: "space-around" },
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            <CardMedia
+              component="img"
+              image={product.imgUrl}
+              title={product.name}
+              sx={{
+                height: "15vh",
+                objectFit: "contain",
+                width: "auto",
+              }}
+            />
+            <CardContent sx={{ p: 0 }}>
+              <Typography variant="subtitle1">{product.name}</Typography>
+              <Typography variant="subtitle2">
+                Cantidad: {product.quantity}
+              </Typography>
+            </CardContent>
+            <CardContent
+              sx={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                py: 1,
+              }}
+            >
+              <Typography variant="subtitle2">
+                Valor: {product.quantity} x ${product.price} = $
+                {product.quantity * product.price}
+              </Typography>
+              <IconButton onClick={() => deleteProductById(product.id)}>
+                <DeleteForeverIcon />
+              </IconButton>
+            </CardContent>
+            <Divider sx={{ width: "100%" }} />
+          </Box>
+        ))}
+      </Card>
 
-      {cart.map((product) => (
-        <div key={product.id}>
-          <h3>{product.name}</h3>
-          <h3>Cantidad: {product.quantity}</h3>
-          <IconButton onClick={() => deleteProductById(product.id)}>
-            <DeleteForeverIcon />
-          </IconButton>
-        </div>
-      ))}
-
-      <div>
-        <h2>El total a pagar es: ${total}</h2>
+      <Card
+        sx={{
+          mt: 2,
+          p: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h6">El total a pagar es: ${total}</Typography>
         <Link to="/checkout">
-          <Button variant="contained">Finalizar compra</Button>
+          <Button variant="outlined">Finalizar compra</Button>
         </Link>
 
-        <Button variant="contained" onClick={cleanCartAlert}>
+        <Button sx={{ mt: 1 }} variant="outlined" onClick={cleanCartAlert}>
           Vaciar carrito
         </Button>
-      </div>
-    </div>
+      </Card>
+    </Container>
   );
 };
 

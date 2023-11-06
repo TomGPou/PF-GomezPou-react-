@@ -11,8 +11,15 @@ import { Link } from "react-router-dom";
 
 const ProductCard = ({ item }) => {
   return (
-    <Grid item xs={11} sm={5} md={4} lg={3} xl={2}>
-      <Card>
+    <Grid item xs={11} sm={5} md={4} lg={3} xl={3}>
+      <Card
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <CardMedia sx={{ height: 140 }} image={item.imgUrl} title={item.name} />
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">

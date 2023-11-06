@@ -67,6 +67,7 @@ function Navbar() {
           sx={{
             background: customTheme.palette.primary.dark,
             width: "100%",
+            height: "7vh",
           }}
         >
           <Toolbar disableGutters>
@@ -98,11 +99,10 @@ function Navbar() {
                 sx={{ display: { xs: "block", md: "none" } }}
               >
                 <MenuItem onClick={handleCloseNavMenu}>
-                  <Link to="/">
+                  <Link style={{ textDecoration: "none" }} to="/">
                     <Typography
                       sx={{
                         color: customTheme.palette.dark.main,
-                        textDecoration: "none",
                       }}
                     >
                       Todos los Productos
@@ -113,11 +113,13 @@ function Navbar() {
                 {categories.map((category) => {
                   return (
                     <MenuItem key={category.id} onClick={handleCloseNavMenu}>
-                      <Link to={category.path}>
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={category.path}
+                      >
                         <Typography
                           sx={{
                             color: customTheme.palette.dark.main,
-                            textDecoration: "none",
                           }}
                         >
                           {category.name}
@@ -135,7 +137,15 @@ function Navbar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, display: "block" }}
               >
-                <Link to="/">Todos los productos</Link>
+                <Link
+                  to="/"
+                  style={{
+                    textDecoration: "none",
+                    color: customTheme.palette.dark.main,
+                  }}
+                >
+                  Todos los productos
+                </Link>
               </Button>
               {categories.map((category) => {
                 return (
@@ -145,7 +155,15 @@ function Navbar() {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, display: "block" }}
                   >
-                    <Link to={category.path}>{category.name}</Link>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        color: customTheme.palette.dark.main,
+                      }}
+                      to={category.path}
+                    >
+                      {category.name}
+                    </Link>
                   </Button>
                 );
               })}

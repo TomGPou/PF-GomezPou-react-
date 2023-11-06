@@ -1,25 +1,39 @@
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Container, Box } from "@mui/material";
 import ProductCard from "../../common/productCard/ProductCard";
-import { ClipLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
+import { customTheme } from "../../common/themeConfig/themeconfig";
 
 const ItemList = ({ items }) => {
   return (
-    <>
+    <Container sx={{ minHeight: "73vh" }}>
       {/* <Button variant="contained" onClick={rellenarDb}>
         Rellenar
       </Button> */}
 
       {items.length === 0 ? (
-        <ClipLoader cssOverride={{}} />
+        <Box
+          sx={{
+            height: "73vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <FadeLoader
+            color={customTheme.palette.primary.dark}
+            cssOverride={{}}
+          />
+        </Box>
       ) : (
         <Grid
           container
-          spacing={2}
+          direction="row"
           justifyContent="center"
+          alignItems="stretch"
+          spacing={2}
           sx={{
             my: "1vh",
             px: "20px",
-            minHeight: "70vh",
           }}
         >
           {items.map((item) => {
@@ -27,7 +41,7 @@ const ItemList = ({ items }) => {
           })}
         </Grid>
       )}
-    </>
+    </Container>
   );
 };
 

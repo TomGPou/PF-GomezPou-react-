@@ -4,14 +4,16 @@ import { ArrowForwardIos } from "@mui/icons-material";
 
 const Counter = ({ add, subtract, counter, onAdd }) => {
   return (
-    <Box sx={{ display: "flex" }} spacing={2}>
-      <Button onClick={subtract}>
-        <ArrowBackIosIcon />
-      </Button>
-      <h4>{counter}</h4>
-      <Button onClick={add}>
-        <ArrowForwardIos />
-      </Button>
+    <Box sx={{ display: "flex", flexDirection: "column" }} spacing={2}>
+      <Box sx={{ display: "flex" }}>
+        <Button onClick={subtract}>
+          <ArrowBackIosIcon />
+        </Button>
+        <h4>{counter}</h4>
+        <Button onClick={add}>
+          <ArrowForwardIos />
+        </Button>
+      </Box>
 
       <Button
         onClick={() => {

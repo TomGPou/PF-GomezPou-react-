@@ -13,7 +13,9 @@ const Footer = () => {
         alignItems: "center",
       }}
     >
-      <Typography variant="body-md"> Copyright 2023</Typography>
+      <Typography sx={{ color: customTheme.palette.dark.main }} variant="body2">
+        Copyright 2023
+      </Typography>
     </Container>
   );
 };
