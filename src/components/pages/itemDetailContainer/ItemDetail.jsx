@@ -26,9 +26,16 @@ export const ItemDetail = ({
         justifyContent: "center",
       }}
     >
-      <Card sx={{ height: "100%", display: { xs: "block", sm: "flex" } }}>
+      <Card
+        sx={{
+          height: "100%",
+          maxWidth: "60%",
+          display: { xs: "block", sm: "flex" },
+          justifyContent: "space-around",
+        }}
+      >
         <CardMedia
-          sx={{ height: 200 }}
+          sx={{ width: { sx: "100%", sm: "50%" } }}
           component="img"
           image={productSelected.imgUrl}
           title={productSelected.name}

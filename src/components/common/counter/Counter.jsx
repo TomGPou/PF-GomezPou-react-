@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { ArrowForwardIos } from "@mui/icons-material";
 
@@ -9,7 +9,7 @@ const Counter = ({ add, subtract, counter, onAdd }) => {
         <Button onClick={subtract}>
           <ArrowBackIosIcon />
         </Button>
-        <h4>{counter}</h4>
+        <Typography variant="h5">{counter}</Typography>
         <Button onClick={add}>
           <ArrowForwardIos />
         </Button>
