@@ -24,6 +24,7 @@ const Cart = ({ cart, cleanCartAlert, deleteProductById, total }) => {
       }}
     >
       <Card>
+        {/* Mapeo de productos del cart */}
         {cart.map((product) => (
           <Box
             key={product.id}
@@ -72,24 +73,42 @@ const Cart = ({ cart, cleanCartAlert, deleteProductById, total }) => {
         ))}
       </Card>
 
-      <Card
-        sx={{
-          mt: 2,
-          p: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h6">El total a pagar es: ${total}</Typography>
-        <Link to="/checkout">
-          <Button variant="outlined">Finalizar compra</Button>
-        </Link>
+      {/* Render condicional si el cart se encuentra vacio */}
+      {cart.length > 0 ? (
+        <Card
+          sx={{
+            mt: 2,
+            p: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h6">El total a pagar es: ${total}</Typography>
+          <Link to="/checkout">
+            <Button variant="outlined">Finalizar compra</Button>
+          </Link>
 
-        <Button sx={{ mt: 1 }} variant="outlined" onClick={cleanCartAlert}>
-          Vaciar carrito
-        </Button>
-      </Card>
+          <Button sx={{ mt: 1 }} variant="outlined" onClick={cleanCartAlert}>
+            Vaciar carrito
+          </Button>
+        </Card>
+      ) : (
+        <Card
+          sx={{
+            mt: 2,
+            p: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography variant="h6">Su carrito se encuentra vacio</Typography>
+          <Link to="/">
+            <Button variant="outlined">Volver a la tienda</Button>
+          </Link>
+        </Card>
+      )}
     </Container>
   );
 };
