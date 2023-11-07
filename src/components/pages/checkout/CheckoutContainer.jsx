@@ -93,6 +93,9 @@ const CheckoutContainer = () => {
       email: Yup.string()
         .required("Campo obligatorio")
         .email("No es un email válido"),
+      emailRepeat: Yup.string()
+        .required("Campo obligatorio")
+        .oneOf([Yup.ref("email")], "Los emails no coinciden"),
       // password: Yup.string()
       //   .required("Campo obligatorio")
       //   .matches(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,15}$/, {
@@ -109,6 +112,8 @@ const CheckoutContainer = () => {
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       errors={errors}
+      cart={cart}
+      total={total}
     />
   );
 };

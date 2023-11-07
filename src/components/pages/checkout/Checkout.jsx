@@ -1,6 +1,16 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Divider,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-const Checkout = ({ handleChange, handleSubmit, errors }) => {
+const Checkout = ({ handleChange, handleSubmit, errors, cart, total }) => {
   return (
     <Stack
       justifyContent="center"
@@ -8,6 +18,43 @@ const Checkout = ({ handleChange, handleSubmit, errors }) => {
       spacing={2}
       sx={{ pt: 2, minHeight: "73vh" }}
     >
+      <Card>
+        {/* Mapeo de productos del cart */}
+        {cart.map((product) => (
+          <Box
+            key={product.id}
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" },
+              justifyContent: { xs: "center", sm: "space-around" },
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            <CardMedia
+              component="img"
+              image={product.imgUrl}
+              title={product.name}
+              sx={{
+                height: "15vh",
+                objectFit: "contain",
+                width: "auto",
+              }}
+            />
+            <CardContent sx={{ p: 0 }}>
+              <Typography variant="subtitle1">{product.name}</Typography>
+              <Typography variant="subtitle2">
+                Cantidad: {product.quantity}
+              </Typography>
+            </CardContent>
+            <Divider sx={{ width: "100%" }} />
+          </Box>
+        ))}
+        <Typography sx={{ textAlign: "center" }} variant="h6">
+          El total a pagar es: ${total}
+        </Typography>
+      </Card>
+
       <Typography variant="h5">Completa el formulario:</Typography>
 
       <form
@@ -35,14 +82,24 @@ const Checkout = ({ handleChange, handleSubmit, errors }) => {
             error={errors.apellido ? true : false}
             helperText={errors.apellido}
           />
-          <TextField
-            label="Email"
-            variant="outlined"
-            name="email"
-            onChange={handleChange}
-            error={errors.email ? true : false}
-            helperText={errors.email}
-          />
+          <Stack direction="row" spacing={1}>
+            <TextField
+              label="Email"
+              variant="outlined"
+              name="email"
+              onChange={handleChange}
+              error={errors.email ? true : false}
+              helperText={errors.email}
+            />
+            <TextField
+              label="Repetir email"
+              variant="outlined"
+              name="emailRepeat"
+              onChange={handleChange}
+              error={errors.emailRepeat ? true : false}
+              helperText={errors.emailRepeat}
+            />
+          </Stack>
 
           <Stack direction="row" spacing={1}>
             <Button type="submit" variant="outlined">
