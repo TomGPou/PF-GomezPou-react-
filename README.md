@@ -2,15 +2,15 @@
 
 ###
 
-<p align="left">Proyecto de Ecommerce para el curso de React de Coderhouse</p>
+<p align="center">Proyecto de Ecommerce para el curso de React de Coderhouse</p>
 
 ###
 
-<h2 align="left">Se utilizan las siguientes herramientas:</h2>
+<h2 align="center">Se utilizan las siguientes herramientas:</h2>
 
 ###
 
-<div align="left">
+<div align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo"  />
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="40" alt="react logo"  />
